@@ -1,0 +1,26 @@
+<h2 class="text-center mt-1 mb-2">Listing All Documnet of <%=@user.username %></h2>
+<% if @user.doc.present? %>
+<% @user.doc.each do|doc| %>
+<div class="card text-center mb-4">
+  <div class="card-header font-weight-bold">
+    by <span class="text-primary"><%= link_to "#{doc.user.username}",user_path(doc.user.id) %></span>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title text-success font-weight-bold"><%= doc.title %></h5>
+    <p class="card-text "><%= truncate(doc.content, length:50) %></p>
+    <%= link_to 'View',doc_path(doc),class:"btn btn-outline-success" %>
+    <% if current_user==doc.user && session[:user_id].present? %>
+        <%= link_to 'Edit',edit_doc_path(doc),class:"btn btn-outline-primary"%>
+        <%= link_to 'Delete',doc,data: {turbo_method: 'delete', turbo_confirm: "Are you sure"},class:"btn btn-outline-danger"%>
+    <% end %>
+  </div>
+  <div class="card-footer text-muted">
+    <p class="float-left font-weight-bold">Created <%= time_ago_in_words(doc.created_at)%> Ago</p>
+    <p class="float-right font-weight-bold">Updated <%= time_ago_in_words(doc.updated_at)%> Ago</p>
+  </div>
+</div>
+<% end %>
+<% else %>
+ <h2 class="text-center">You Have not create any Documnet</h2>
+ <%= link_to "Add New Doc",new_doc_path,class:"btn btn-lg btn-info btn-block"%>
+ <% end %>

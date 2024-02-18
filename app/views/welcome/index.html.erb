@@ -1,0 +1,10 @@
+<div class="jumbotron mt-5 text-center " id="jumbo" style="color:black; background-color:white;">
+  <h1 class="display-4 font-weight-bold">FileCabinet App</h1>
+  <p class="lead font-weight-bold">Unlock the power of seamless document management with our feature-rich file cabinet app, designed to streamline your workflow and elevate your productivity to new heights</p>
+  <hr class="my-4">
+  
+  <% if session[:user_id].present? %>
+  <% else %>
+  <%= link_to 'Signup', signup_path, class:"btn btn-success btn-lg" %>
+  <% end %>
+</div>
